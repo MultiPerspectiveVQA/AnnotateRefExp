@@ -27,7 +27,7 @@ def clean_collection(db, collection_name):
     collection.remove()
 
 def load_data_file(args):
-    file = train_file_path if args.file == "train" else "val"
+    file = train_file_path if args.file == "train" else val_file_path
     with open(file) as f:
         data = f.readlines()
     data = [json.loads(item) for item in data]
@@ -35,7 +35,7 @@ def load_data_file(args):
 
 def main(args):
     print("Connecting to DB")
-    db = init_db()
+    db = init_db(args)
     print("Getting collection name")
     collection_name = get_collection_name(args)
     if collection_exists(db, collection_name):
