@@ -22,5 +22,5 @@ def get_annotated_data():
         annotated_set.append(doc)
     return annotated_set
 
-def submit_annotated_datapoint(doc):
+def write_annotated_datapoint(doc):
     mongo_annotated_collection.insert_one(doc)
