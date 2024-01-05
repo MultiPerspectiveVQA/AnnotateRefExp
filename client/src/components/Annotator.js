@@ -8,6 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
+import axios from "axios";
 
 const sampleData = {
     img: "COCO_train2014_000000401144.jpg",
@@ -64,10 +65,19 @@ export default function Annotator() {
     function handleSubmit(event) {
         event.preventDefault();
         const reqBody = {
-            ...annotationData,
+            ...annotationData.annotation_data,
             ...formData
         }
-
+        reqBody.noun_chunks = reqBody.noun_chunks.split("\n");
+        axios.post("/submit", reqBody)
+            .then((res) => setAnnotationData(res.data));
+        setformData({
+            object_lookup: "",
+            ref_exp: "",
+            noun_chunks: "",
+            ambiguous_question: "No",
+            notes: ""
+        })
     }
     
     function handleFormChange(event) {
@@ -177,7 +187,8 @@ export default function Annotator() {
                     onClick={handleNext}>Next
                 </Button>
                 <Button 
-                    variant="contained">Submit
+                    variant="contained"
+                    onClick={handleSubmit}>Submit
                 </Button>
             </Stack>
         </FormControl>
