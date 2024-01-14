@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CreateIcon from '@mui/icons-material/Create';
 
-export default function ResponsiveAppBar() {
+export default function TopNavBar() {
     console.log("rendered header");
     return (
     <AppBar position="static">

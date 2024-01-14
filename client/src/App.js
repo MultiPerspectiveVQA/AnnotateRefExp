@@ -1,11 +1,11 @@
 import React from 'react';
-import ResponsiveAppBar from './components/ResponsiveAppBar'
+import TopNavBar from './components/TopNavBar'
 import MainView from './components/MainView'
 
 export default function App() {
   return (
     <div className="App">
-      <ResponsiveAppBar />
+      <TopNavBar />
       <MainView />
     </div>
   );

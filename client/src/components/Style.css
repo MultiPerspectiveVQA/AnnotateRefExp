@@ -1,0 +1,13 @@
+.annotation-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vqa-data-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 20px 20px;
+    margin: 20px 20px 20px 20px;
+}

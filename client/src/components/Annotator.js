@@ -9,16 +9,17 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import axios from "axios";
+import './Style.css'
 
-const sampleData = {
-    img: "COCO_train2014_000000401144.jpg",
-    question: "Where is the cat looking a keyboard?",
-    answers: [
-        "on table",
-        "left side",
-        "on desk"
-    ]
-}
+// const sampleData = {
+//     img: "COCO_train2014_000000401144.jpg",
+//     question: "Where is the cat looking a keyboard?",
+//     answers: [
+//         "on table",
+//         "left side",
+//         "on desk"
+//     ]
+// }
 
 export default function Annotator() {
 
@@ -78,6 +79,26 @@ export default function Annotator() {
             ambiguous_question: "No",
             notes: ""
         })
+        if(annotationData === false) {
+            setAnnotationData({
+                is_present: false,
+                annotation_data: {
+                    _id: "",
+                    answer_type: "",
+                    answers: [],
+                    binary_label: "",
+                    grounding_labels: [],
+                    height: 0,
+                    image_id: "",
+                    question: "",
+                    question_id: "",
+                    width: 0,
+                    image_filename: "",
+                    image_encoded: "",
+                    file_name: ""
+                }
+            })
+        }
     }
     
     function handleFormChange(event) {
@@ -105,7 +126,7 @@ export default function Annotator() {
           <Container> 
             <img 
                 src={imgURL} 
-                alt="VQA Image" 
+                alt="VQA data" 
                 style={{
                     maxWidth: '500px',
                     maxHeight: '500px'
@@ -129,69 +150,79 @@ export default function Annotator() {
             </Stack>
           </Container>
         </Stack>
-        <FormControl>
-            <TextField 
-                required 
-                variant="outlined" 
-                label="Which object are we looking for?" 
-                name="object_lookup" 
-                value={formData.object_lookup}
-                onChange={handleFormChange}
-            />
-            <TextField 
-                required 
-                variant="outlined" 
-                label="Referring expression?" 
-                name="ref_exp"
-                value={formData.ref_exp}
-                onChange={handleFormChange}
-            />
-            <TextField 
-                label="Noun chunks" 
-                multiline rows={4} 
-                name="noun_chunks"
-                value={formData.noun_chunks}
-                onChange={handleFormChange}
-            />
-            <FormLabel id="ambiguous-question">Is the question ambiguous?</FormLabel>
-            <RadioGroup
-                aria-labelledby="ambiguous-question"
-                name="ambiguous_question"
-                value={formData.ambiguous_question}
-                onChange={handleFormChange}
+        <div
+            className='annotation-form-container'
             >
-                <FormControlLabel 
-                    value="Yes" 
-                    control={<Radio />} 
-                    label="Yes" 
+            <FormControl>
+                <TextField 
+                    required 
+                    variant="outlined" 
+                    label="Which object are we looking for?" 
+                    name="object_lookup" 
+                    value={formData.object_lookup}
+                    onChange={handleFormChange}
+                    style = {{width: 500}}
+                    margin='dense'
+
                 />
-                <FormControlLabel 
-                    value="No" 
-                    control={<Radio />} 
-                    label="No" 
+                <TextField 
+                    required 
+                    variant="outlined" 
+                    label="Referring expression?" 
+                    name="ref_exp"
+                    value={formData.ref_exp}
+                    onChange={handleFormChange}
+                    margin='dense'
                 />
-            </RadioGroup>
-            <TextField 
-                variant="outlined" 
-                label="Notes"
-                name="notes"
-                value={formData.notes}
-                onChange={handleFormChange}
-            />
-            <Stack
-                direction="row" 
-                spacing={2} 
-            >
-                <Button 
-                    variant="outlined"
-                    onClick={handleNext}>Next
-                </Button>
-                <Button 
-                    variant="contained"
-                    onClick={handleSubmit}>Submit
-                </Button>
-            </Stack>
-        </FormControl>
+                <TextField 
+                    label="Noun chunks" 
+                    multiline rows={4} 
+                    name="noun_chunks"
+                    value={formData.noun_chunks}
+                    onChange={handleFormChange}
+                    margin='dense'
+                />
+                <FormLabel id="ambiguous-question">Is the question ambiguous?</FormLabel>
+                <RadioGroup
+                    aria-labelledby="ambiguous-question"
+                    name="ambiguous_question"
+                    value={formData.ambiguous_question}
+                    onChange={handleFormChange}
+                >
+                    <FormControlLabel 
+                        value="Yes" 
+                        control={<Radio />} 
+                        label="Yes" 
+                    />
+                    <FormControlLabel 
+                        value="No" 
+                        control={<Radio />} 
+                        label="No" 
+                    />
+                </RadioGroup>
+                <TextField 
+                    variant="outlined" 
+                    label="Notes"
+                    name="notes"
+                    value={formData.notes}
+                    onChange={handleFormChange}
+                    margin='dense'
+                />
+                <Stack
+                    direction="row" 
+                    spacing={2} 
+                >
+                    <Button 
+                        variant="outlined"
+                        onClick={handleNext}>Next
+                    </Button>
+                    <Button 
+                        variant="contained"
+                        onClick={handleSubmit}>Submit
+                    </Button>
+                </Stack>
+            </FormControl>
+        </div>
 
       </div>
     );

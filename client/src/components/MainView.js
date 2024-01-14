@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Annotator from './Annotator';
+import VqaViewer from './VqaViewer';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -53,7 +54,8 @@ export default function MainView() {
             <Tab label="Annotate Data" {...a11yProps(1)} />
             </Tabs>
         </Box>
-        {value === 0 && <CustomTabPanel value={value} index={0}> Item One </CustomTabPanel>}
+        {/* {value === 0 && <CustomTabPanel value={value} index={0}> Item One </CustomTabPanel>} */}
+        {value === 0 && <VqaViewer />}
         {value === 1 && <Annotator />}
         </Box>
     );

@@ -17,10 +17,11 @@ def get_annotation_data():
 
 def get_annotated_data():
     docs = mongo_annotated_collection.find({})
-    annotated_set = list()
+    annotated_list = list()
     for doc in docs:
-        annotated_set.append(doc)
-    return annotated_set
+        doc["_id"] = str(doc["_id"])
+        annotated_list.append(doc)
+    return  annotated_list
 
 def write_annotated_datapoint(doc):
     mongo_annotated_collection.insert_one(doc)
