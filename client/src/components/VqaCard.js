@@ -8,7 +8,7 @@ export default function VqaCard(props) {
 
 
     var imgURL = "/get-image/" +  (props.imageFilename? props.imageFilename: "logo.jpg");
-    console.log(props)
+    // console.log(props)
 
     return (
     <Card sx={{ maxWidth: 500 }}>
