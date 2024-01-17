@@ -49,37 +49,8 @@ export default function Annotator() {
         notes: ""
     });
 
-
-    function handleNext() {
-        fetch("/next")
-            .then((res) => res.json())
-            .then((data) => setAnnotationData(data));
-        setformData({
-            object_lookup: "",
-            ref_exp: "",
-            noun_chunks: "",
-            ambiguous_question: "No",
-            notes: ""
-        })
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        const reqBody = {
-            ...annotationData.annotation_data,
-            ...formData
-        }
-        reqBody.noun_chunks = reqBody.noun_chunks.split("\n");
-        axios.post("/submit", reqBody)
-            .then((res) => setAnnotationData(res.data));
-        setformData({
-            object_lookup: "",
-            ref_exp: "",
-            noun_chunks: "",
-            ambiguous_question: "No",
-            notes: ""
-        })
-        if(annotationData === false) {
+    function handleAnnotationData(data) {
+        if(data.is_present === false) {
             setAnnotationData({
                 is_present: false,
                 annotation_data: {
@@ -98,7 +69,41 @@ export default function Annotator() {
                     file_name: ""
                 }
             })
+        } else {
+            setAnnotationData(data);
         }
+    } 
+
+
+    function handleNext() {
+        fetch("/next")
+            .then((res) => res.json())
+            .then((data) => handleAnnotationData(data));
+        setformData({
+            object_lookup: "",
+            ref_exp: "",
+            noun_chunks: "",
+            ambiguous_question: "No",
+            notes: ""
+        })
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        const reqBody = {
+            ...annotationData.annotation_data,
+            ...formData
+        }
+        reqBody.noun_chunks = reqBody.noun_chunks.split("\n");
+        axios.post("/submit", reqBody)
+            .then((res) => handleAnnotationData(res.data));
+        setformData({
+            object_lookup: "",
+            ref_exp: "",
+            noun_chunks: "",
+            ambiguous_question: "No",
+            notes: ""
+        })
     }
     
     function handleFormChange(event) {
@@ -115,6 +120,7 @@ export default function Annotator() {
  
     var imageFilename = annotationData.annotation_data.image_filename
     var imgURL = "/get-image/" +  (imageFilename? imageFilename: "logo.jpg");
+    console.log(annotationData)
     return (
       <div hidden={annotationData.is_present !== true}>
         <Stack 
