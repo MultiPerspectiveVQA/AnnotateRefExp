@@ -49,3 +49,4 @@ def list_annotated():
 def get_image(imagefile):
     file_path = os.path.join(IMAGE_FILES, imagefile) if imagefile != "logo.jpg" else "logo.jpg"
     return send_file(file_path, mimetype='image/jpg')
+# flask --app app run --port 3001
