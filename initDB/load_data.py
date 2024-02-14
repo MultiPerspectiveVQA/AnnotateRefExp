@@ -54,3 +54,7 @@ if __name__ == "__main__":
                         help='valid options include train/val')
     args = parser.parse_args()
     main(args)
+
+
+
+# brew services restart mongodb-community
