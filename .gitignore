@@ -138,3 +138,6 @@ vqa_therapy
 
 # compiled python files
 server/__pycache__
+server/__pycache__/app.cpython-39.pyc
+server/__pycache__/constants.cpython-39.pyc
+server/__pycache__/mongo_util.cpython-39.pyc
